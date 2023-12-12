@@ -4,3 +4,12 @@
   font-family: 'Flow Circular', cursive;
   font-family: 'Dynalight', cursive;
 }
+
+.typeDiplay {
+  font-family: "electroharmonics", cursive;
+}
+
+@font-face {
+  font-family: electroharmonics;
+  src: url("./font/electroharmonix.ttf") format("truetype");
+}
