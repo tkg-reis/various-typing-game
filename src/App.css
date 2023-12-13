@@ -1,14 +1,39 @@
 .App {
   text-align: center;
-  font-family: 'Libre Barcode 39', cursive;
-  font-family: 'Flow Circular', cursive;
-  font-family: 'Dynalight', cursive;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 600px;
 }
-
+.top {
+  font-size: 24px;
+  color: white;
+}
 .typeDiplay {
-  font-family: "electroharmonics", cursive;
+  font-family: 'Flow Circular', cursive;
+  margin: 16px 0;
+  font-size: 20px;
+  color: white;
 }
 
+.typeDiplay span.corrected {
+  color: blue;
+}
+
+.typeDiplay span.incorrected {
+  color: red;
+}
+
+.textInput {
+  width: 600px;
+  height: 200px;
+  margin: 16px 0;
+  font-size: 20px;
+  outline: none;
+}
+.currentCount, 
+footer {
+  color: white;
+}
 @font-face {
   font-family: electroharmonics;
   src: url("./font/electroharmonix.ttf") format("truetype");
