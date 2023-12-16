@@ -30,11 +30,43 @@
   font-size: 20px;
   outline: none;
 }
+
 .currentCount, 
 footer {
   color: white;
 }
+
 @font-face {
   font-family: electroharmonics;
   src: url("./font/electroharmonix.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: icecreamer;
+  src: url("./font/Icecreamer.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: kickbox;
+  src: url("./font//KickboxDEMO-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: filipinz;
+  src: url("./font/Filipiniz-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Checkicon;
+  src: url("./font/CheckIcons.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: sweetLovelyRainbowOne;
+  src: url("./font/SweetLovelyRainbowOne.otf") format("opentype");
+}
+
+@font-face {
+  font-family: typeFaces;
+  src: url("./font/Typefaces1.otf") format("opentype");
 }

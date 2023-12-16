@@ -10,9 +10,14 @@ import WrongSound from "./audio/audio_wrong.mp3";
 const options = [
   // #1 フォントの追加
   {value : "electroHarmonics", label : "エレクトロハーモニクス"},
-  {value : "Dynalight", label : "筆記体"},
-  {value : "Flow Circular", label : "難読レベル１"},
-  {value: "Libre Barcode 39" , label : "難読レベル２"}
+  {value : "Dynalight", label : "筆記体1"},
+  {value : "sweetLovelyRainbowOne", label : "筆記体2"},
+  {value : "Flow Circular", label : "線文字"},
+  {value: "icecreamer" , label : "アイスクリーマー"},
+  {value: "kickbox", label : "キックボックス"},
+  {value: "filipinz", label : "フィリピン"},
+  {value: "Checkicon", label : "チェックアイコン（欠落あり）"},
+  {value: "typeFaces", label : "顔"}
 ];
 
 function App() {
@@ -23,6 +28,15 @@ function App() {
   const [active, setActive] = useState(false);
   const [count, setCount] = useState(0);
 
+  // fontfamilyの選択
+  const ref = useRef("");
+  
+  // 正解の時のカラーの初期化処理
+  const DefaultColor = (val) => {
+    ref.current.style.color = val.value;
+  }
+  const textareaRef = useRef(null);
+  let currentTextarea = textareaRef.current;
   const [typePlaySound] = useSound(TypeWriterSound , {onend: () =>{
     // #1点数計算を追加
     console.log("sounds good");
@@ -30,7 +44,8 @@ function App() {
   const [collectSound] = useSound(CollectSound, {
     onend : () => {
       console.log("collect!");
-      setActive(true);
+      setActive(prev => !prev );
+      DefaultColor("white");
     }
   });
   const [wrongSound] = useSound(WrongSound, {
@@ -38,16 +53,6 @@ function App() {
       console.log("wrong!");
     }
   });
-
-
-
-// fontfamilyの選択
-  const ref = useRef("");
-  const ChangeFamily = (val) => {
-    ref.current.style.fontFamily = val.value;
-  }
-  const textareaRef = useRef(null);
-  let currentTextarea = textareaRef.current;
 
 
   useEffect(() => {
@@ -93,7 +98,28 @@ function App() {
     }
   }
 
-  let spiltTxt = info.split("");
+  let toUpperInfo = "";
+  let spiltTxt = [];
+  let currentFontType = "";
+  const ChangeFamily = (val) => {
+    ref.current.style.fontFamily = val.value;
+    currentFontType = val.value;
+
+    if(val.value == "typeFaces") {
+      toUpperInfo = info.toUpperCase();
+      console.log(toUpperInfo);
+    }
+    
+  }
+  
+  if(currentFontType == "typeFaces") {
+    spiltTxt = toUpperInfo.split("");
+    console.log("cccc");
+  } else {
+    console.log("bbb");
+    spiltTxt = info.split("");
+  }
+  
 
   return (
     <div className='App'>
