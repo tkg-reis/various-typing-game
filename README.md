@@ -22,3 +22,18 @@
 フローチャートにて記載。
 
 ## "23.12.02"
+
+## "23.12.15"
+
+<hr>
+<hr>
+<hr>
+<hr>
+<br>
+<br>
+<br>
+<br>
+<code>https://zenn.dev/nagiri/articles/34af006208f5ce</code>
+<code></code>
+<code></code>
+<code></code>

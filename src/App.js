@@ -21,7 +21,9 @@ const options = [
 ];
 
 function App() {
+
   const ph = "フォントが選べます"; 
+  const timeout = 1300;
   const answer = useRef(true);
   const [error, setError] = useState("");
   const [info, setInfo] = useState("start typing");
@@ -30,11 +32,6 @@ function App() {
 
   // fontfamilyの選択
   const ref = useRef("");
-  
-  // 正解の時のカラーの初期化処理
-  const DefaultColor = (val) => {
-    ref.current.style.color = val.value;
-  }
   const textareaRef = useRef(null);
   let currentTextarea = textareaRef.current;
   const [typePlaySound] = useSound(TypeWriterSound , {onend: () =>{
@@ -44,8 +41,9 @@ function App() {
   const [collectSound] = useSound(CollectSound, {
     onend : () => {
       console.log("collect!");
+      console.log();
       setActive(prev => !prev );
-      DefaultColor("white");
+      // 詳細度でcssが変更されないため、変更処理
     }
   });
   const [wrongSound] = useSound(WrongSound, {
@@ -53,7 +51,6 @@ function App() {
       console.log("wrong!");
     }
   });
-
 
   useEffect(() => {
     const getData = async() => {
@@ -69,6 +66,7 @@ function App() {
   },[active]);
 
   const changeHandler = () => {
+
     typePlaySound();
     const sentenceArray = document.querySelectorAll('.typeDiplay > span');
     const arrayValue = currentTextarea.value.split("");
@@ -76,6 +74,7 @@ function App() {
     answer.current = true;
 
     sentenceArray.forEach((charsSpan,index) => {
+      variousEffects(charsSpan);
       if((arrayValue[index] == null)) {
         charsSpan.classList.remove('corrected');
         charsSpan.classList.remove('incorrected');
@@ -91,16 +90,24 @@ function App() {
         answer.current = false;
       }
     });
+
     if(answer.current === true ) {
       collectSound();
       currentTextarea.value = "";
+
+      setTimeout(() => {
+        for(let i = 0; i < sentenceArray.length; i++) {
+          sentenceArray[i].classList.remove("corrected");
+        }
+      }, timeout);
       setCount(prev => prev + 1);
     }
   }
 
   let toUpperInfo = "";
-  let spiltTxt = [];
   let currentFontType = "";
+  let spiltTxt = [];
+
   const ChangeFamily = (val) => {
     ref.current.style.fontFamily = val.value;
     currentFontType = val.value;
@@ -109,17 +116,46 @@ function App() {
       toUpperInfo = info.toUpperCase();
       console.log(toUpperInfo);
     }
-    
   }
   
   if(currentFontType == "typeFaces") {
     spiltTxt = toUpperInfo.split("");
     console.log("cccc");
   } else {
-    console.log("bbb");
     spiltTxt = info.split("");
   }
-  
+
+  const [selectedRadioOptions, setSelectedRadioOptions] = useState("");
+
+  const handleOptionChange = (e) => {
+    setSelectedRadioOptions(e.target.value);
+  }
+
+  const variousEffects = (val) => {
+
+    // fontを動的に変更
+    if(selectedRadioOptions === "moveFont") {
+      return val.style.fontSize = Math.floor(Math.random() * 50) + 16 + "px";
+
+    } 
+    // else if(selectedRadioOptions === "invisibleFont") {
+
+    // //文字色を未打なものを背景色と同じにして見えなくする。 
+    //   const si = setInterval(() => {
+    //     return val.classList.add("whiteChar");
+    //   }, 1000);
+    // } else if (val) {
+    //   // ある一文字を大文字か小文字に変える
+
+    // } else if (val) {
+    //   // 様々なフォントファミリーを乱立させる
+
+    // } else if (val) {
+    //   // デフォルトに戻す選択肢
+
+    // }
+
+  }
 
   return (
     <div className='App'>
@@ -130,13 +166,40 @@ function App() {
           onChange={ChangeFamily}
           autoFocus
           placeholder={ph}
-          
         />
       </div>
       <div className='typeDiplay' ref={ref}>
         {spiltTxt.map((value, i) => {
           return <span key={i}>{value}</span>
         })}
+      </div>
+      <div className='variousEffects'>
+        <label htmlFor='moveFont'>
+          <input 
+          type='radio'
+          name="moveFont"
+          value="moveFont"
+          checked={selectedRadioOptions === "moveFont"}
+          onChange={handleOptionChange}
+          />
+          moveFont
+        </label>
+        <label htmlFor='invisibleFont'>
+          <input
+          type='radio'
+          name='invisibleFont'
+          value="invisibleFont"
+          checked={selectedRadioOptions === "invisibleFont"}
+          onChange={handleOptionChange}
+          />
+          invisibleFont(準備中)
+        </label>
+        {/* <label>
+          <input
+          type='radio'
+          name=''
+          />
+        </label> */}
       </div>
       <textarea className='textInput' ref={textareaRef} onChange={changeHandler} autoFocus></textarea>
       <p>{!error ? error : ""}</p>

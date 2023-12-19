@@ -6,6 +6,10 @@
 }
 .top {
   font-size: 24px;
+  color: white ;
+}
+
+.variousEffects {
   color: white;
 }
 .typeDiplay {
@@ -21,6 +25,10 @@
 
 .typeDiplay span.incorrected {
   color: red;
+}
+
+.typeDiplay span.whiteChar {
+  color: black;
 }
 
 .textInput {
